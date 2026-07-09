@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday, Dyna</title>
+<meta name="description" content="A little birthday surprise made just for Dyna." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3E%F0%9F%92%97%3C/text%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#E0648B',
+          'primary-dark': '#B84A6B',
+          'primary-light': '#F3A8C0',
+          accent: '#D4AF6A',
+          'accent-dark': '#B08A45',
+          background: '#FFF8F4',
+          surface: '#FFFFFF',
+          ink: '#2A1B22',
+          muted: '#8B6B76',
+          divider: '#F0DCE2',
+          deep: '#1F1420',
+        },
+        fontFamily: {
+          display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          serif: ['"Cormorant Garamond"', 'serif'],
+          body: ['"Inter"', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        borderRadius: {
+          '2.5xl': '1.25rem',
+          '4xl': '2rem',
+          '5xl': '2.5rem',
+        },
+      },
+    },
+  }
+</script>
+
+<style type="text/tailwindcss">
+  @layer base {
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { @apply bg-background text-ink font-body; overflow-x: hidden; }
+    ::selection { background-color: #E0648B; color: #fff; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #FFF8F4; }
+    ::-webkit-scrollbar-thumb { background: #F3A8C0; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #E0648B; }
+  }
+  @layer components {
+    .noise-overlay {
+      position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.04; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .magnetic-btn { position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .magnetic-btn:hover { transform: scale(1.03) translateY(-1px); }
+    .magnetic-btn:active { transform: scale(0.98); }
+    .magnetic-btn::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0));
+      transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .magnetic-btn:hover::before { transform: translateY(0); }
+    .lift-on-hover { transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .lift-on-hover:hover { transform: translateY(-1px); }
+    .gradient-text {
+      background: linear-gradient(135deg, #E0648B 0%, #B84A6B 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .glass { background: rgba(255,248,244,0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(224,100,139,0.18); }
+    .glass-dark { background: rgba(31,20,32,0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+    .grid-bg {
+      background-image: linear-gradient(rgba(224,100,139,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(224,100,139,0.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .text-balance { text-wrap: balance; }
+  }
+</style>
+
+<style>
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+
+  @keyframes ring-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(224,100,139,0.6); }
+    70%  { box-shadow: 0 0 0 14px rgba(224,100,139,0); }
+    100% { box-shadow: 0 0 0 0 rgba(224,100,139,0); }
+  }
+  .ring-pulse { animation: ring-pulse 2s infinite; }
+
+  @keyframes pillar-sweep {
+    0% { transform: translateX(-100%); } 50% { transform: translateX(100%); } 100% { transform: translateX(100%); }
+  }
+  .pillar-sweep { animation: pillar-sweep 3s ease-in-out infinite; }
+
+  @keyframes petal-fall {
+    0%   { transform: translate(-50%, -10px) rotate(0deg); opacity: 0; }
+    12%  { opacity: 1; }
+    82%  { opacity: 1; }
+    100% { transform: translate(-50%, 150px) rotate(200deg); opacity: 0; }
+  }
+  @keyframes petal-ripple {
+    0%   { transform: translateX(-50%) scale(0.4); opacity: 0.9; }
+    80%  { transform: translateX(-50%) scale(3.2); opacity: 0; }
+    100% { transform: translateX(-50%) scale(3.2); opacity: 0; }
+  }
+  @keyframes petal-fadein { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
+
+  .r-hidden { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .r-visible { opacity: 1; transform: translateY(0); }
+
+  .mobile-menu { transform: translateY(-8px); opacity: 0; pointer-events: none; transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.35s ease; }
+  .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+  #navbar { transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; }
+  section { scroll-margin-top: 6rem; }
+
+  .shuffle-card { transition: all 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+
+  .gb-drop.dragging { border-color: #E0648B; background-color: rgba(224,100,139,0.06); }
+
+  #lock-screen { transition: opacity 1s ease; }
+  #lock-screen.unlocked { opacity: 0; pointer-events: none; }
+  body.locked { overflow: hidden; height: 100vh; }
+</style>
+</head>
+<body class="relative">
+<div class="noise-overlay"></div>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen" class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1800&q=80" alt="" class="absolute inset-0 h-full w-full object-cover brightness-[0.4]" />
+  <div class="absolute inset-0 bg-gradient-to-br from-deep/90 via-deep/60 to-deep/85"></div>
+  <div class="absolute top-16 right-6 sm:right-16 flex flex-col gap-6 opacity-60">
+    <div class="h-2 w-2 rounded-full bg-primary-light animate-float" style="animation-delay:0s"></div>
+    <div class="h-3 w-3 rounded-full bg-accent animate-float" style="animation-delay:1.2s"></div>
+    <div class="h-1.5 w-1.5 rounded-full bg-white animate-float" style="animation-delay:2.1s"></div>
+  </div>
+  <div class="relative z-10 text-center px-6">
+    <span class="h-14 w-14 rounded-2xl bg-primary/80 flex items-center justify-center mx-auto mb-8 shadow-lg shadow-primary/40">
+      <i data-lucide="heart" class="h-6 w-6 text-white"></i>
+    </span>
+    <p class="font-mono text-xs uppercase tracking-[0.3em] text-white/60 mb-8">This page unlocks in</p>
+    <div class="grid grid-cols-4 gap-3 sm:gap-5 max-w-xl mx-auto">
+      <div class="glass-dark rounded-2xl px-3 py-5 text-center border border-white/10">
+        <div class="font-display text-4xl sm:text-6xl font-bold text-white tabular-nums" id="lock-days">00</div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-white/50 mt-2">Days</div>
+      </div>
+      <div class="glass-dark rounded-2xl px-3 py-5 text-center border border-white/10">
+        <div class="font-display text-4xl sm:text-6xl font-bold text-white tabular-nums" id="lock-hours">00</div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-white/50 mt-2">Hours</div>
+      </div>
+      <div class="glass-dark rounded-2xl px-3 py-5 text-center border border-white/10">
+        <div class="font-display text-4xl sm:text-6xl font-bold text-white tabular-nums" id="lock-mins">00</div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-white/50 mt-2">Mins</div>
+      </div>
+      <div class="glass-dark rounded-2xl px-3 py-5 text-center border border-white/10">
+        <div class="font-display text-4xl sm:text-6xl font-bold text-white tabular-nums" id="lock-secs">00</div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-white/50 mt-2">Secs</div>
+      </div>
+    </div>
+    <p class="font-serif italic text-2xl sm:text-3xl text-white/80 mt-10">Happy Birthday, My Princess.</p>
+    <p class="text-white/40 text-xs mt-3 font-mono">July 12th · come back at midnight 🎂</p>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl rounded-full px-4 sm:px-6 py-2.5">
+  <div class="flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-2.5">
+      <span class="h-9 w-9 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
+        <i data-lucide="heart" class="h-4.5 w-4.5 text-white" style="width:18px;height:18px" stroke-width="2.4"></i>
+      </span>
+      <span class="font-display font-bold text-lg tracking-tight">Dyna's Day</span>
+    </a>
+    <div class="hidden lg:flex items-center gap-8">
+      <a href="#moments" class="lift-on-hover text-sm font-medium text-ink/80 hover:text-primary">Moments</a>
+      <a href="#memories" class="lift-on-hover text-sm font-medium text-ink/80 hover:text-primary">Memories</a>
+      <a href="#letter" class="lift-on-hover text-sm font-medium text-ink/80 hover:text-primary">Letter</a>
+      <a href="#story" class="lift-on-hover text-sm font-medium text-ink/80 hover:text-primary">Our Story</a>
+      <a href="#wishes" class="lift-on-hover text-sm font-medium text-ink/80 hover:text-primary">Wishes</a>
+    </div>
+    <a href="#wishes" class="hidden lg:inline-flex magnetic-btn items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full font-semibold text-sm shadow-lg shadow-primary/30">
+      Sign the Guestbook <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
+    </a>
+    <button id="menu-btn" class="lg:hidden h-10 w-10 flex items-center justify-center rounded-full bg-ink/5">
+      <i data-lucide="menu" id="menu-icon" class="h-5 w-5"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" class="mobile-menu fixed inset-0 z-40 glass-dark flex flex-col items-center justify-center gap-8">
+  <a href="#moments" class="mobile-link font-display text-3xl text-white">Moments</a>
+  <a href="#memories" class="mobile-link font-display text-3xl text-white">Memories</a>
+  <a href="#letter" class="mobile-link font-display text-3xl text-white">Letter</a>
+  <a href="#story" class="mobile-link font-display text-3xl text-white">Our Story</a>
+  <a href="#wishes" class="mobile-link font-display text-3xl text-white">Wishes</a>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section id="home" class="relative min-h-[100dvh] overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1800&q=80" alt="" class="absolute inset-0 h-full w-full object-cover brightness-[0.45]" />
+  <div class="absolute inset-0 bg-gradient-to-br from-deep/85 via-deep/50 to-deep/75"></div>
+  <div class="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-deep to-transparent"></div>
+
+  <div class="absolute top-24 right-6 sm:right-16 flex flex-col gap-6 opacity-70">
+    <div class="h-2 w-2 rounded-full bg-primary-light animate-float" style="animation-delay:0s"></div>
+    <div class="h-3 w-3 rounded-full bg-accent animate-float" style="animation-delay:1.2s"></div>
+    <div class="h-1.5 w-1.5 rounded-full bg-white animate-float" style="animation-delay:2.1s"></div>
+    <div class="h-2.5 w-2.5 rounded-full bg-primary-light animate-float" style="animation-delay:0.6s"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-32 pb-16 min-h-[100dvh] flex flex-col justify-end">
+    <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl font-bold text-white tracking-tighter leading-[0.95] max-w-5xl">
+      <span class="hero-line-1 block">Happy Birthday</span>
+      <span class="hero-line-2 block font-serif italic font-medium">My Princess</span>
+    </h1>
+    <p class="hero-meta mt-8 max-w-xl text-white/70 text-base sm:text-lg leading-relaxed">
+      A little corner of the internet, built just for you — because you deserve to be celebrated today, and every day after it.
+    </p>
+
+    <div class="hero-cta mt-10">
+      <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50 mb-3">Counting down to July 12th</p>
+      <div class="grid grid-cols-4 gap-3 max-w-md" id="countdown">
+        <div class="glass-dark rounded-2xl px-2 py-3 text-center border border-white/10">
+          <div class="font-display text-2xl sm:text-3xl font-bold text-white tabular-nums" id="cd-days">00</div>
+          <div class="font-mono text-[9px] uppercase tracking-widest text-white/50 mt-1">Days</div>
+        </div>
+        <div class="glass-dark rounded-2xl px-2 py-3 text-center border border-white/10">
+          <div class="font-display text-2xl sm:text-3xl font-bold text-white tabular-nums" id="cd-hours">00</div>
+          <div class="font-mono text-[9px] uppercase tracking-widest text-white/50 mt-1">Hours</div>
+        </div>
+        <div class="glass-dark rounded-2xl px-2 py-3 text-center border border-white/10">
+          <div class="font-display text-2xl sm:text-3xl font-bold text-white tabular-nums" id="cd-mins">00</div>
+          <div class="font-mono text-[9px] uppercase tracking-widest text-white/50 mt-1">Mins</div>
+        </div>
+        <div class="glass-dark rounded-2xl px-2 py-3 text-center border border-white/10">
+          <div class="font-display text-2xl sm:text-3xl font-bold text-white tabular-nums" id="cd-secs">00</div>
+          <div class="font-mono text-[9px] uppercase tracking-widest text-white/50 mt-1">Secs</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-cta mt-10 flex flex-wrap gap-3">
+      <a href="#letter" class="magnetic-btn inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold shadow-lg shadow-primary/30">
+        Read My Letter <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
+      </a>
+      <a href="#wishes" class="magnetic-btn inline-flex items-center gap-2 glass-dark text-white px-6 py-3 rounded-full font-semibold border border-white/15">
+        <i data-lucide="mail" class="h-4 w-4"></i> Sign the Guestbook
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="moments" class="py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4">A few little things</p>
+    <h2 class="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-2xl text-balance">Little moments, on loop.</h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-14">
+
+      <!-- Card A: shuffler -->
+      <div class="feature-card rounded-3xl bg-surface border border-divider p-6 sm:p-8">
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-muted mb-2">Replaying</p>
+        <h3 class="font-display text-xl sm:text-2xl font-bold mb-6">Moments I keep coming back to</h3>
+        <div class="relative h-44" id="shuffler">
+          <div class="shuffle-card absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-light/50 to-primary/20 border border-primary/20 p-5 flex items-center" data-idx="0">
+            <p class="font-serif italic text-lg text-ink/90 leading-snug">The way you laugh at your own jokes before you even finish them.</p>
+          </div>
+          <div class="shuffle-card absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-light/50 to-primary/20 border border-primary/20 p-5 flex items-center" data-idx="1">
+            <p class="font-serif italic text-lg text-ink/90 leading-snug">Every 2am conversation that somehow turned into sunrise.</p>
+          </div>
+          <div class="shuffle-card absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-light/50 to-primary/20 border border-primary/20 p-5 flex items-center" data-idx="2">
+            <p class="font-serif italic text-lg text-ink/90 leading-snug">How you still get excited over things we've done a hundred times.</p>
+          </div>
+        </div>
+        <p class="text-sm text-muted mt-6 leading-relaxed">A few of the little things that live rent-free in my head.</p>
+      </div>
+
+      <!-- Card B: signature petal animation -->
+      <div class="feature-card rounded-3xl bg-surface border border-divider p-6 sm:p-8">
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-muted mb-2">Signature</p>
+        <h3 class="font-display text-xl sm:text-2xl font-bold mb-6">Still falling for you</h3>
+        <div class="relative h-44 rounded-2xl overflow-hidden bg-gradient-to-b from-primary-light/40 via-white to-white border border-divider">
+          <div class="absolute -top-6 -left-6 h-20 w-20 rounded-full bg-primary-light/40 blur-2xl"></div>
+          <div class="absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-accent/30 blur-2xl"></div>
+          <div class="absolute top-2 inset-x-0 flex justify-between px-3">
+            <span class="font-mono text-[9px] uppercase tracking-widest text-muted">Petals</span>
+            <span class="font-mono text-[9px] uppercase tracking-widest text-primary" id="petal-count">07</span>
+          </div>
+          <svg class="absolute top-6 left-1/2 -translate-x-1/2" width="14" height="20" viewBox="0 0 14 20">
+            <path d="M7 0 C7 8 7 8 7 20" stroke="#E0648B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div id="petals" class="absolute inset-0"></div>
+          <svg class="absolute bottom-6 left-0 right-0" width="100%" height="12" viewBox="0 0 300 12" preserveAspectRatio="none">
+            <path d="M0 6 Q 37.5 0 75 6 T 150 6 T 225 6 T 300 6" stroke="#E0648B" stroke-opacity="0.35" stroke-width="1.5" fill="none"/>
+          </svg>
+          <div id="petal-ripples" class="absolute inset-x-0 bottom-6"></div>
+          <div class="absolute bottom-2 inset-x-0 flex items-center justify-center gap-2">
+            <span class="h-1.5 w-1.5 rounded-full bg-primary ring-pulse"></span>
+            <span class="font-mono text-[10px] text-muted" id="petal-status">still falling for you</span>
+          </div>
+        </div>
+        <p class="text-sm text-muted mt-6 leading-relaxed">Some things don't change with time. This is one of them.</p>
+      </div>
+
+      <!-- Card C: cursor + calendar -->
+      <div class="feature-card rounded-3xl bg-surface border border-divider p-6 sm:p-8">
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-muted mb-2">Marked</p>
+        <h3 class="font-display text-xl sm:text-2xl font-bold mb-6">The big day</h3>
+        <div class="relative h-44 rounded-2xl bg-white border border-divider p-4" id="cal-wrap">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-muted">July 2026</span>
+            <i data-lucide="calendar" class="h-3.5 w-3.5 text-muted"></i>
+          </div>
+          <div class="grid grid-cols-7 gap-1" id="mini-cal"></div>
+          <div id="cal-cursor" class="absolute h-4 w-4 pointer-events-none transition-all duration-700 ease-out" style="top:0; left:0;">
+            <i data-lucide="mouse-pointer-2" class="h-4 w-4 text-primary-dark drop-shadow"></i>
+          </div>
+          <div id="cal-confirm" class="absolute inset-x-0 bottom-1 text-center opacity-0 transition-opacity duration-500">
+            <span class="font-mono text-[10px] text-primary-dark bg-primary-light/40 px-2 py-1 rounded-full">Celebration: confirmed 🎉</span>
+          </div>
+        </div>
+        <p class="text-sm text-muted mt-6 leading-relaxed">Already circled. Already counting down.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="memories" class="py-24 sm:py-32 bg-white/50">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4">Memories</p>
+    <h2 class="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-2xl text-balance">A few of my favorites.</h2>
+
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-14">
+      <figure class="gallery-item r-hidden group relative rounded-3xl overflow-hidden aspect-[4/5]">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80" alt="Golden hour" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-gradient-to-t from-deep/70 via-transparent to-transparent"></div>
+        <figcaption class="absolute bottom-4 left-4 font-display text-white font-semibold">That golden hour</figcaption>
+      </figure>
+      <figure class="gallery-item r-hidden group relative rounded-3xl overflow-hidden aspect-[4/5]" style="transition-delay:80ms">
+        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=80" alt="Candlelit dinner" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-gradient-to-t from-deep/70 via-transparent to-transparent"></div>
+        <figcaption class="absolute bottom-4 left-4 font-display text-white font-semibold">Just us</figcaption>
+      </figure>
+      <figure class="gallery-item r-hidden group relative rounded-3xl overflow-hidden aspect-[4/5]" style="transition-delay:160ms">
+        <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=900&q=80" alt="Birthday candles" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-gradient-to-t from-deep/70 via-transparent to-transparent"></div>
+        <figcaption class="absolute bottom-4 left-4 font-display text-white font-semibold">Make a wish</figcaption>
+      </figure>
+      <figure class="gallery-item r-hidden group relative rounded-3xl overflow-hidden aspect-[4/5]" style="transition-delay:240ms">
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80" alt="Flowers" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-gradient-to-t from-deep/70 via-transparent to-transparent"></div>
+        <figcaption class="absolute bottom-4 left-4 font-display text-white font-semibold">Your favorite flowers</figcaption>
+      </figure>
+      <figure class="gallery-item r-hidden group relative rounded-3xl overflow-hidden aspect-[4/5]" style="transition-delay:320ms">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="Coffee" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-gradient-to-t from-deep/70 via-transparent to-transparent"></div>
+        <figcaption class="absolute bottom-4 left-4 font-display text-white font-semibold">Slow mornings</figcaption>
+      </figure>
+      <figure class="gallery-item r-hidden group relative rounded-3xl overflow-hidden aspect-[4/5]" style="transition-delay:400ms">
+        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=80" alt="Mountains" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-gradient-to-t from-deep/70 via-transparent to-transparent"></div>
+        <figcaption class="absolute bottom-4 left-4 font-display text-white font-semibold">Adventures ahead</figcaption>
+      </figure>
+    </div>
+    <p class="text-center text-sm text-muted mt-8 font-mono">(swap these for our real photos any time — just replace the image links)</p>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="relative py-24 sm:py-32 overflow-hidden">
+  <div class="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-primary-light/20 blur-3xl"></div>
+  <div class="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-accent/15 blur-3xl"></div>
+  <div class="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+    <div class="grid lg:grid-cols-3 lg:divide-x divide-divider text-center lg:text-left">
+      <div class="pillar px-4 sm:px-8 py-8 lg:py-0">
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-3">Reasons and counting</p>
+        <div class="font-display text-5xl sm:text-6xl font-bold gradient-text"><span class="count-up" data-end="1000" data-suffix="+">0+</span></div>
+        <div class="relative h-px w-16 mx-auto lg:mx-0 mt-4 overflow-hidden bg-divider">
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent pillar-sweep"></div>
+        </div>
+        <p class="text-sm text-muted mt-4 leading-relaxed">Reasons I love you, and I'm still counting.</p>
+      </div>
+      <div class="pillar px-4 sm:px-8 py-8 lg:py-0">
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-3">No contest</p>
+        <div class="font-display text-5xl sm:text-6xl font-bold gradient-text"><span class="count-up" data-end="100" data-suffix="%">0%</span></div>
+        <div class="relative h-px w-16 mx-auto lg:mx-0 mt-4 overflow-hidden bg-divider">
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent pillar-sweep"></div>
+        </div>
+        <p class="text-sm text-muted mt-4 leading-relaxed">Still my favorite person, easily.</p>
+      </div>
+      <div class="pillar px-4 sm:px-8 py-8 lg:py-0">
+        <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-3">On my mind</p>
+        <div class="font-display text-5xl sm:text-6xl font-bold gradient-text"><span class="count-up" data-end="24" data-suffix="/7">0/7</span></div>
+        <div class="relative h-px w-16 mx-auto lg:mx-0 mt-4 overflow-hidden bg-divider">
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent pillar-sweep"></div>
+        </div>
+        <p class="text-sm text-muted mt-4 leading-relaxed">Roughly how often I'm thinking about you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOL / LOVE LETTER -->
+<section id="letter" class="relative" style="min-height: 300vh;">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-20">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4">A letter for you</p>
+    <h2 class="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-2xl text-balance">Something I wanted to write down.</h2>
+  </div>
+
+  <div class="letter-card sticky top-24 mt-16" style="min-height: 70vh;">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div class="bg-surface rounded-4xl border border-divider p-8 sm:p-12 grid lg:grid-cols-5 gap-10 items-center shadow-xl shadow-primary/5">
+        <div class="lg:col-span-3">
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-4">Page One</p>
+          <h3 class="font-serif italic text-3xl sm:text-4xl font-medium mb-6">Dyna,</h3>
+          <p class="font-body text-base sm:text-lg leading-relaxed text-ink/80">
+            Before anything else today, I wanted you to have this — something that's just yours, away from the noise of the day. No errands, no plans, just a minute to sit with how much you mean to me.
+          </p>
+        </div>
+        <div class="lg:col-span-2">
+          <img src="https://images.unsplash.com/photo-1478146059778-26028b07395a?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-3xl w-full h-64 lg:h-80 object-cover" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="letter-card sticky top-24 mt-16" style="min-height: 70vh;">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div class="bg-surface rounded-4xl border border-divider p-8 sm:p-12 grid lg:grid-cols-5 gap-10 items-center shadow-xl shadow-primary/5">
+        <div class="lg:col-span-3">
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-4">Page Two</p>
+          <h3 class="font-serif italic text-3xl sm:text-4xl font-medium mb-6">You make ordinary days good.</h3>
+          <p class="font-body text-base sm:text-lg leading-relaxed text-ink/80">
+            You have this way of making even the most boring afternoons feel like something worth remembering. I don't say it enough, but I notice it — the way you care for the people around you, the way you show up, the way you're just relentlessly, wonderfully you.
+          </p>
+        </div>
+        <div class="lg:col-span-2">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-3xl w-full h-64 lg:h-80 object-cover" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="letter-card sticky top-24 mt-16" style="min-height: 70vh;">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div class="bg-surface rounded-4xl border border-divider p-8 sm:p-12 grid lg:grid-cols-5 gap-10 items-center shadow-xl shadow-primary/5">
+        <div class="lg:col-span-3">
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-4">Page Three</p>
+          <h3 class="font-serif italic text-3xl sm:text-4xl font-medium mb-6">Happy birthday, love.</h3>
+          <p class="font-body text-base sm:text-lg leading-relaxed text-ink/80">
+            Here's to another year of you — all your plans, your ideas, your ridiculous laugh, all of it. I hope today feels exactly as good as you deserve. Thank you for letting me be a part of your story.
+          </p>
+          <p class="font-serif italic text-xl mt-8 text-primary-dark">All my love, always.</p>
+        </div>
+        <div class="lg:col-span-2">
+          <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-3xl w-full h-64 lg:h-80 object-cover" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES GRID -> TIMELINE -->
+<section id="story" class="bg-deep text-white py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary-light mb-4">How we got here</p>
+    <h2 class="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tighter max-w-2xl text-balance text-white">Our story, so far.</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 mt-14">
+    <div class="svc-tile r-hidden bg-deep p-8 sm:p-10 transition-colors hover:bg-white/[0.03]">
+      <div class="h-12 w-12 rounded-2xl bg-primary/15 flex items-center justify-center mb-6 svc-icon transition-transform">
+        <i data-lucide="sparkles" class="h-6 w-6 text-primary-light" stroke-width="2.2"></i>
+      </div>
+      <h3 class="font-display text-xl font-bold mb-2">How it started</h3>
+      <p class="text-white/60 text-sm leading-relaxed">A conversation that wasn't supposed to lead anywhere — and somehow led here.</p>
+    </div>
+    <div class="svc-tile r-hidden bg-deep p-8 sm:p-10 transition-colors hover:bg-white/[0.03]" style="transition-delay:80ms">
+      <div class="h-12 w-12 rounded-2xl bg-primary/15 flex items-center justify-center mb-6 svc-icon transition-transform">
+        <i data-lucide="coffee" class="h-6 w-6 text-primary-light" stroke-width="2.2"></i>
+      </div>
+      <h3 class="font-display text-xl font-bold mb-2">The first date</h3>
+      <p class="text-white/60 text-sm leading-relaxed">Nervous laughs and a table we stayed at for way too long.</p>
+    </div>
+    <div class="svc-tile r-hidden bg-deep p-8 sm:p-10 transition-colors hover:bg-white/[0.03]" style="transition-delay:160ms">
+      <div class="h-12 w-12 rounded-2xl bg-primary/15 flex items-center justify-center mb-6 svc-icon transition-transform">
+        <i data-lucide="plane" class="h-6 w-6 text-primary-light" stroke-width="2.2"></i>
+      </div>
+      <h3 class="font-display text-xl font-bold mb-2">The first trip</h3>
+      <p class="text-white/60 text-sm leading-relaxed">Learned we made great travel partners — and terrible map-readers.</p>
+    </div>
+    <div class="svc-tile r-hidden bg-deep p-8 sm:p-10 transition-colors hover:bg-white/[0.03]" style="transition-delay:240ms">
+      <div class="h-12 w-12 rounded-2xl bg-primary/15 flex items-center justify-center mb-6 svc-icon transition-transform">
+        <i data-lucide="home" class="h-6 w-6 text-primary-light" stroke-width="2.2"></i>
+      </div>
+      <h3 class="font-display text-xl font-bold mb-2">Somewhere between</h3>
+      <p class="text-white/60 text-sm leading-relaxed">Between the inside jokes and the ordinary days, you became home.</p>
+    </div>
+    <div class="svc-tile r-hidden bg-deep p-8 sm:p-10 transition-colors hover:bg-white/[0.03]" style="transition-delay:320ms">
+      <div class="h-12 w-12 rounded-2xl bg-primary/15 flex items-center justify-center mb-6 svc-icon transition-transform">
+        <i data-lucide="heart" class="h-6 w-6 text-primary-light" stroke-width="2.2"></i>
+      </div>
+      <h3 class="font-display text-xl font-bold mb-2">Through it all</h3>
+      <p class="text-white/60 text-sm leading-relaxed">The good days and the hard ones — always better with you in them.</p>
+    </div>
+    <div class="svc-tile r-hidden bg-deep p-8 sm:p-10 transition-colors hover:bg-white/[0.03]" style="transition-delay:400ms">
+      <div class="h-12 w-12 rounded-2xl bg-primary/15 flex items-center justify-center mb-6 svc-icon transition-transform">
+        <i data-lucide="infinity" class="h-6 w-6 text-primary-light" stroke-width="2.2"></i>
+      </div>
+      <h3 class="font-display text-xl font-bold mb-2">Today, and always</h3>
+      <p class="text-white/60 text-sm leading-relaxed">One more year down. Forever still ahead of us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST SIGNALS -> WHY YOU -->
+<section class="py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4 text-center">Why you</p>
+    <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tighter text-center text-balance">What makes you, you.</h2>
+    <div class="grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto mt-14">
+      <div class="badge r-hidden bg-surface rounded-2xl border border-divider p-8 text-center shadow-sm hover:-translate-y-1 transition-transform">
+        <div class="h-14 w-14 rounded-2xl bg-primary-light/40 flex items-center justify-center mx-auto mb-5">
+          <i data-lucide="sparkles" class="h-6 w-6 text-primary-dark" stroke-width="2.2"></i>
+        </div>
+        <h3 class="font-display text-lg font-bold mb-2">Your Energy</h3>
+        <p class="text-sm text-muted leading-relaxed">You light up every room without even trying.</p>
+      </div>
+      <div class="badge r-hidden bg-surface rounded-2xl border border-divider p-8 text-center shadow-sm hover:-translate-y-1 transition-transform" style="transition-delay:100ms">
+        <div class="h-14 w-14 rounded-2xl bg-primary-light/40 flex items-center justify-center mx-auto mb-5">
+          <i data-lucide="heart-handshake" class="h-6 w-6 text-primary-dark" stroke-width="2.2"></i>
+        </div>
+        <h3 class="font-display text-lg font-bold mb-2">Your Heart</h3>
+        <p class="text-sm text-muted leading-relaxed">The most generous, caring person I know.</p>
+      </div>
+      <div class="badge r-hidden bg-surface rounded-2xl border border-divider p-8 text-center shadow-sm hover:-translate-y-1 transition-transform" style="transition-delay:200ms">
+        <div class="h-14 w-14 rounded-2xl bg-primary-light/40 flex items-center justify-center mx-auto mb-5">
+          <i data-lucide="star" class="h-6 w-6 text-primary-dark" stroke-width="2.2"></i>
+        </div>
+        <h3 class="font-display text-lg font-bold mb-2">Your Spirit</h3>
+        <p class="text-sm text-muted leading-relaxed">Endlessly curious, endlessly you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM -> GUESTBOOK -->
+<section id="wishes" class="py-24 sm:py-32 bg-white/50">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-5">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4">Sign the guestbook</p>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tighter text-balance">Leave Dyna a birthday message.</h2>
+        <p class="text-muted mt-6 leading-relaxed max-w-md">Everyone who loves Dyna gets a page in her book. Write something silly, something sweet, or both.</p>
+        <div class="mt-10 space-y-4">
+          <div class="flex items-start gap-4">
+            <div class="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <i data-lucide="lock" class="h-4.5 w-4.5 text-primary-dark" style="width:18px;height:18px"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-sm">For her eyes only</p>
+              <p class="text-xs text-muted mt-0.5">Every message gets saved just for Dyna.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <i data-lucide="zap" class="h-4.5 w-4.5 text-primary-dark" style="width:18px;height:18px"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-sm">Added instantly</p>
+              <p class="text-xs text-muted mt-0.5">No waiting — it shows up right away.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <i data-lucide="gift" class="h-4.5 w-4.5 text-primary-dark" style="width:18px;height:18px"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-sm">Part of the gift</p>
+              <p class="text-xs text-muted mt-0.5">A little something to read on the day.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="bg-surface rounded-3xl border border-divider p-6 sm:p-10 shadow-xl shadow-primary/5" id="guestbook-wrap">
+          <form id="guestbook-form" class="space-y-5">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <label class="block">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-muted">Your Name</span>
+                <input required type="text" name="name" placeholder="Who's this from?" class="mt-2 w-full rounded-xl border border-divider bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" />
+              </label>
+              <label class="block">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-muted">How You Know Her</span>
+                <input type="text" name="relation" placeholder="Best friend, sister, coworker..." class="mt-2 w-full rounded-xl border border-divider bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" />
+              </label>
+            </div>
+            <label class="block">
+              <span class="font-mono text-[10px] uppercase tracking-widest text-muted">Your Message</span>
+              <textarea required name="message" rows="5" placeholder="Happy birthday, Dyna! ..." class="mt-2 w-full rounded-xl border border-divider bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none"></textarea>
+            </label>
+
+            <div class="gb-drop border-2 border-dashed border-divider rounded-xl p-6 text-center transition-colors" id="gb-drop">
+              <i data-lucide="upload" class="h-5 w-5 text-muted mx-auto mb-2"></i>
+              <p class="text-xs text-muted">Drop a photo to add to her memory book (optional)</p>
+              <div id="gb-file-list" class="mt-3 flex flex-wrap gap-2 justify-center"></div>
+            </div>
+
+            <button type="submit" id="gb-submit" class="magnetic-btn w-full inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3.5 rounded-full font-semibold shadow-lg shadow-primary/30">
+              <span id="gb-submit-label">Add My Message</span>
+              <i data-lucide="send" class="h-4 w-4" id="gb-submit-icon"></i>
+            </button>
+          </form>
+
+          <div id="guestbook-sent" class="hidden text-center py-10">
+            <div class="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
+              <i data-lucide="check-circle-2" class="h-8 w-8 text-primary"></i>
+            </div>
+            <h3 class="font-display text-xl font-bold mb-2">Added to the book 💌</h3>
+            <p class="text-sm text-muted">Your message will be waiting for Dyna on her birthday.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-deep text-white pt-20 pb-8">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+    <div class="grid lg:grid-cols-5 gap-12">
+      <div class="lg:col-span-2">
+        <a href="#home" class="flex items-center gap-2.5">
+          <span class="h-9 w-9 rounded-xl bg-primary flex items-center justify-center">
+            <i data-lucide="heart" class="h-4 w-4 text-white"></i>
+          </span>
+          <span class="font-display font-bold text-lg">Dyna's Day</span>
+        </a>
+        <p class="text-white/50 text-sm mt-5 max-w-xs leading-relaxed">A little site made with entirely too much love, for entirely too good a reason.</p>
+        <div class="flex items-center gap-2 mt-6">
+          <span class="h-2 w-2 rounded-full bg-primary-light ring-pulse"></span>
+          <span class="font-mono text-[11px] uppercase tracking-widest text-white/50" id="footer-status">Still counting down to July 12</span>
+        </div>
+      </div>
+      <div class="lg:col-span-1">
+        <p class="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-4">Explore</p>
+        <div class="flex flex-col gap-3 text-sm text-white/60">
+          <a href="#moments" class="hover:text-white transition-colors">Moments</a>
+          <a href="#memories" class="hover:text-white transition-colors">Memories</a>
+          <a href="#letter" class="hover:text-white transition-colors">Letter</a>
+        </div>
+      </div>
+      <div class="lg:col-span-1">
+        <p class="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-4">More</p>
+        <div class="flex flex-col gap-3 text-sm text-white/60">
+          <a href="#story" class="hover:text-white transition-colors">Our Story</a>
+          <a href="#wishes" class="hover:text-white transition-colors">Wishes</a>
+        </div>
+      </div>
+      <div class="lg:col-span-1">
+        <p class="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-4">Occasion</p>
+        <p class="text-sm text-white/60">July 12th 🎂</p>
+        <p class="text-sm text-white/60 mt-1">Every year, forever.</p>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-14 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-white/40">Made with love, for the best person I know.</p>
+      <p class="text-xs text-white/40 flex items-center gap-1.5">Happy Birthday <i data-lucide="heart" class="h-3 w-3 text-primary-light"></i> Dyna</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  lucide.createIcons();
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Navbar glass-on-scroll + mobile menu
+  const navbar = document.getElementById('navbar');
+  const setGlass = () => {
+    if (window.scrollY > 80) { navbar.classList.add('glass'); }
+    else { navbar.classList.remove('glass'); }
+  };
+  setGlass();
+  window.addEventListener('scroll', setGlass);
+
+  const menuBtn = document.getElementById('menu-btn');
+  const menuIcon = document.getElementById('menu-icon');
+  const mobileMenu = document.getElementById('mobile-menu');
+  let menuOpen = false;
+  const toggleMenu = (force) => {
+    menuOpen = force !== undefined ? force : !menuOpen;
+    mobileMenu.classList.toggle('open', menuOpen);
+    menuIcon.setAttribute('data-lucide', menuOpen ? 'x' : 'menu');
+    lucide.createIcons();
+  };
+  menuBtn.addEventListener('click', () => toggleMenu());
+  document.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+  // Countdown to July 12 2026 + lock screen
+  const target = new Date(2026, 6, 12, 0, 0, 0).getTime();
+  const cdDays = document.getElementById('cd-days');
+  const cdHours = document.getElementById('cd-hours');
+  const cdMins = document.getElementById('cd-mins');
+  const cdSecs = document.getElementById('cd-secs');
+  const lockDays = document.getElementById('lock-days');
+  const lockHours = document.getElementById('lock-hours');
+  const lockMins = document.getElementById('lock-mins');
+  const lockSecs = document.getElementById('lock-secs');
+  const lockScreen = document.getElementById('lock-screen');
+  const pad = n => String(n).padStart(2, '0');
+
+  const isLocked = Date.now() < target;
+  if (isLocked) {
+    document.body.classList.add('locked');
+  } else {
+    lockScreen.style.display = 'none';
+  }
+
+  const unlockSite = () => {
+    document.body.classList.remove('locked');
+    lockScreen.classList.add('unlocked');
+    setTimeout(() => { lockScreen.style.display = 'none'; }, 1000);
+    ScrollTrigger.refresh();
+  };
+
+  const tickCountdown = () => {
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      cdDays.textContent = '00'; cdHours.textContent = '00'; cdMins.textContent = '00'; cdSecs.textContent = '00';
+      lockDays.textContent = '00'; lockHours.textContent = '00'; lockMins.textContent = '00'; lockSecs.textContent = '00';
+      if (document.body.classList.contains('locked')) unlockSite();
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    cdDays.textContent = pad(days);
+    cdHours.textContent = pad(hours);
+    cdMins.textContent = pad(mins);
+    cdSecs.textContent = pad(secs);
+    lockDays.textContent = pad(days);
+    lockHours.textContent = pad(hours);
+    lockMins.textContent = pad(mins);
+    lockSecs.textContent = pad(secs);
+  };
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  // Hero entrance
+  if (!prefersReducedMotion) {
+    gsap.from('.hero-line-1', { y: 40, opacity: 0, duration: 1, delay: 0.3, ease: 'power3.out' });
+    gsap.from('.hero-line-2', { y: 60, opacity: 0, duration: 1.2, delay: 0.5, ease: 'power3.out' });
+    gsap.from('.hero-cta, .hero-meta', { y: 24, opacity: 0, duration: 0.8, delay: 0.8, stagger: 0.12, ease: 'power3.out' });
+
+    gsap.from('.feature-card', {
+      scrollTrigger: { trigger: '#moments', start: 'top 80%', once: true },
+      y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+    });
+  }
+
+  // Shuffler
+  const shuffler = document.getElementById('shuffler');
+  const shuffleCards = Array.from(shuffler.children);
+  const styles = [
+    { z: 30, scale: 1, opacity: 1, blur: 0, y: 0 },
+    { z: 20, scale: 0.95, opacity: 0.7, blur: 1, y: 10 },
+    { z: 10, scale: 0.9, opacity: 0.4, blur: 2, y: 20 },
+  ];
+  let order = [0, 1, 2];
+  const applyShuffleStyles = () => {
+    order.forEach((cardIdx, pos) => {
+      const el = shuffleCards[cardIdx];
+      const s = styles[pos];
+      el.style.zIndex = s.z;
+      el.style.transform = `scale(${s.scale}) translateY(${s.y}px)`;
+      el.style.opacity = s.opacity;
+      el.style.filter = s.blur ? `blur(${s.blur}px)` : 'none';
+    });
+  };
+  applyShuffleStyles();
+  setInterval(() => {
+    order.push(order.shift());
+    applyShuffleStyles();
+  }, 3000);
+
+  // Signature petals
+  const petalsWrap = document.getElementById('petals');
+  const petalConfigs = [
+    { left: 15, delay: 0, duration: 3.2, size: 8 },
+    { left: 30, delay: 0.6, duration: 3.8, size: 6 },
+    { left: 48, delay: 1.1, duration: 3.4, size: 9 },
+    { left: 62, delay: 0.3, duration: 4.0, size: 7 },
+    { left: 75, delay: 1.6, duration: 3.6, size: 6 },
+    { left: 88, delay: 0.9, duration: 3.3, size: 8 },
+    { left: 55, delay: 2.1, duration: 3.9, size: 7 },
+  ];
+  petalConfigs.forEach(cfg => {
+    const petal = document.createElement('div');
+    petal.style.position = 'absolute';
+    petal.style.left = cfg.left + '%';
+    petal.style.top = '0';
+    petal.style.width = cfg.size + 'px';
+    petal.style.height = (cfg.size * 0.8) + 'px';
+    petal.style.background = 'linear-gradient(135deg, #E0648B, #D4AF6A)';
+    petal.style.borderRadius = '70% 30% 70% 30%';
+    petal.style.animation = `petal-fall ${cfg.duration}s ease-in ${cfg.delay}s infinite`;
+    petalsWrap.appendChild(petal);
+  });
+  const rippleWrap = document.getElementById('petal-ripples');
+  [10, 45, 80].forEach((left, i) => {
+    const ripple = document.createElement('div');
+    ripple.style.position = 'absolute';
+    ripple.style.left = left + '%';
+    ripple.style.top = '0';
+    ripple.style.width = '10px';
+    ripple.style.height = '10px';
+    ripple.style.borderRadius = '9999px';
+    ripple.style.border = '1px solid rgba(224,100,139,0.6)';
+    ripple.style.animation = `petal-ripple 3s ease-out ${i * 1}s infinite`;
+    rippleWrap.appendChild(ripple);
+  });
+  const petalStatuses = ['still falling for you', 'counting the days...', 'thinking of you', 'your biggest fan'];
+  let petalIdx = 0;
+  const petalStatusEl = document.getElementById('petal-status');
+  setInterval(() => {
+    petalIdx = (petalIdx + 1) % petalStatuses.length;
+    petalStatusEl.style.animation = 'none';
+    petalStatusEl.textContent = petalStatuses[petalIdx];
+    void petalStatusEl.offsetWidth;
+    petalStatusEl.style.animation = 'petal-fadein 0.5s ease';
+  }, 2300);
+
+  // Mini calendar + cursor
+  const miniCal = document.getElementById('mini-cal');
+  let targetCell = null;
+  for (let d = 1; d <= 31; d++) {
+    const cell = document.createElement('div');
+    cell.className = 'h-4 flex items-center justify-center rounded-full ' + (d === 12 ? 'bg-primary text-white font-bold' : 'text-ink/50');
+    cell.textContent = d;
+    miniCal.appendChild(cell);
+    if (d === 12) targetCell = cell;
+  }
+  const calCursor = document.getElementById('cal-cursor');
+  const calConfirm = document.getElementById('cal-confirm');
+  const calWrap = document.getElementById('cal-wrap');
+  const runCalLoop = () => {
+    const wrapRect = calWrap.getBoundingClientRect();
+    const cellRect = targetCell.getBoundingClientRect();
+    const x = cellRect.left - wrapRect.left + cellRect.width / 2 - 8;
+    const y = cellRect.top - wrapRect.top + cellRect.height / 2 - 8;
+    calCursor.style.left = '4px';
+    calCursor.style.top = '4px';
+    setTimeout(() => {
+      calCursor.style.left = x + 'px';
+      calCursor.style.top = y + 'px';
+    }, 200);
+    setTimeout(() => {
+      targetCell.classList.add('ring-pulse');
+      calConfirm.style.opacity = '1';
+    }, 1100);
+    setTimeout(() => {
+      calConfirm.style.opacity = '0';
+      targetCell.classList.remove('ring-pulse');
+    }, 3000);
+  };
+  runCalLoop();
+  setInterval(runCalLoop, 4500);
+
+  // CountUp
+  const countEls = document.querySelectorAll('.count-up');
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.dataset.started) return;
+      el.dataset.started = 'true';
+      const end = parseInt(el.dataset.end, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 2000;
+      const start = performance.now();
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(end * eased) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  countEls.forEach(el => countObserver.observe(el));
+
+  // Generic reveal (gallery, timeline tiles, badges)
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('r-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.r-hidden').forEach(el => revealObserver.observe(el));
+
+  // Timeline tile icon hover
+  document.querySelectorAll('.svc-tile').forEach(tile => {
+    const icon = tile.querySelector('.svc-icon');
+    tile.addEventListener('mouseenter', () => { icon.style.transform = 'scale(1.1)'; });
+    tile.addEventListener('mouseleave', () => { icon.style.transform = 'scale(1)'; });
+  });
+
+  // Protocol sticky-stack scrub
+  if (!prefersReducedMotion) {
+    const letterCards = document.querySelectorAll('.letter-card');
+    letterCards.forEach((card, i) => {
+      if (i === letterCards.length - 1) return;
+      gsap.to(card.firstElementChild, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top top+=100',
+          end: '+=500',
+          scrub: 1,
+        },
+        scale: 0.92,
+        filter: 'blur(6px) saturate(0.7)',
+        opacity: 0.5,
+        ease: 'none',
+      });
+    });
+  }
+
+  // Guestbook form
+  const gbForm = document.getElementById('guestbook-form');
+  const gbSent = document.getElementById('guestbook-sent');
+  const gbSubmit = document.getElementById('gb-submit');
+  const gbLabel = document.getElementById('gb-submit-label');
+  const gbDrop = document.getElementById('gb-drop');
+  const gbFileList = document.getElementById('gb-file-list');
+  let gbFiles = [];
+
+  gbDrop.addEventListener('dragover', (e) => { e.preventDefault(); gbDrop.classList.add('dragging'); });
+  gbDrop.addEventListener('dragleave', () => gbDrop.classList.remove('dragging'));
+  gbDrop.addEventListener('drop', (e) => {
+    e.preventDefault();
+    gbDrop.classList.remove('dragging');
+    const list = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/')).slice(0, 3 - gbFiles.length);
+    gbFiles = [...gbFiles, ...list];
+    renderGbFiles();
+  });
+  const renderGbFiles = () => {
+    gbFileList.innerHTML = '';
+    gbFiles.forEach((f, i) => {
+      const chip = document.createElement('span');
+      chip.className = 'inline-flex items-center gap-1 bg-primary/10 text-primary-dark text-xs px-2.5 py-1 rounded-full';
+      chip.textContent = f.name;
+      gbFileList.appendChild(chip);
+    });
+  };
+
+  gbForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    gbSubmit.disabled = true;
+    gbLabel.textContent = 'Adding...';
+    setTimeout(() => {
+      gbForm.classList.add('hidden');
+      gbSent.classList.remove('hidden');
+    }, 1200);
+  });
+
+  // Refresh ScrollTrigger after everything settles
+  window.addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 200));
+});
+</script>
+</body>
+</html>
